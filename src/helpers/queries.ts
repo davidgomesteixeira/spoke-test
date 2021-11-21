@@ -2,13 +2,13 @@ import {getConnection} from "typeorm";
 import { Task } from "../entity/Task";
 
 class Queries {
-  public static async update(id: number, taskUpdate: string) {
+  public static async update(taskUpdate: { id: number, task: string, status: string }) {
     try {
       await getConnection()
         .createQueryBuilder()
         .update(Task)
-        .set({ task: taskUpdate, })
-        .where("id = :id", { id: id })
+        .set(taskUpdate)
+        .where("id = :id", { id: taskUpdate.id })
         .execute();
     } catch (error) {
       return error;

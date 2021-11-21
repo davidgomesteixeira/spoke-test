@@ -3,15 +3,15 @@ import { TaskController } from "./controller/TaskController";
 export const Routes = [
   {
     method: "get",
-    route: "/tasks",
+    route: '/',
     controller: TaskController,
     action: "all"
   },
   {
     method: "get",
-    route: "/tasks/status/:status",
+    route: "/tasks",
     controller: TaskController,
-    action: "status"
+    action: "all"
   },
   {
     method: "put",
