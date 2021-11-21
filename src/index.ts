@@ -37,9 +37,7 @@ async function getOptions() {
     type: 'postgres',
     synchronize: true,
     logging: false,
-    extra: {
-      ssl: true,
-    },
+    ssl: { rejectUnauthorized: false },
     entities: [
       process.env.TYPEORM_ENTITIES
     ],
