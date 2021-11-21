@@ -34,10 +34,10 @@ async function getOptions() {
 
   connectionOptions = {
     type: 'postgres',
-    synchronize: false,
+    synchronize: true,
     logging: false,
     extra: {
-      ssl: false,
+      ssl: true,
     },
     entities: [
       process.env.TYPEORM_ENTITIES
