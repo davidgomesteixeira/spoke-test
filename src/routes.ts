@@ -1,4 +1,4 @@
-import { TaskController } from "./controller/TaskController";
+import { TaskController } from "./controller";
 
 export const Routes = [
   {

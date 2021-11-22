@@ -1,28 +1,18 @@
 import { getRepository } from "typeorm";
 import { NextFunction, Request, Response } from "express";
 import { Task } from "../entity/Task";
-import { Queries } from "../helpers";
+import { Queries, getTasks, getSingleTask, deleteTask } from "../helpers";
 import { ErrorInterface, SuccessCodeInterface } from "../abstractions";
-import { ErrorCode, SuccessCodes } from "../procedural-codes";
+import { SuccessCodes } from "../procedural-codes";
 
+// split into smaller services, then unit test them and then test the integration add interfaces
 export class TaskController {
   private taskRepository = getRepository(Task);
-
+  
   async all(request: Request, response: Response, next: NextFunction) {
     try {
-      const queryFilter: {} = request.query;
-      const allTasks = await this.taskRepository.find({ order: { id: "ASC" } });
-  
-      const filteredTasks = allTasks.filter(function(task: {})  {
-        let isValid = true;
-        for (const key in queryFilter) {
-          console.log(key, task[key], queryFilter[key]);
-          isValid = isValid && task[key] === queryFilter[key];
-        }
-        return isValid;
-      });
-  
-      response.send(filteredTasks);
+      const result = await getTasks(request.query);
+      response.send(result);
     } catch (error) {
       // error handling should go here (seperate it in a helper I guess?)
       response.send(error);
@@ -31,7 +21,7 @@ export class TaskController {
 
   async one(request: Request, response: Response, next: NextFunction) {
     try {
-      const result = await this.taskRepository.findOne(request.params.id);
+      const result = await getSingleTask(request.params.id);
       response.send(result);
     } catch (error) {
       // error handling should go here (seperate it in a helper I guess?)
@@ -67,23 +57,9 @@ export class TaskController {
 
   async remove(request: Request, response: Response, next: NextFunction) {
     try {
-      let _genericSuccess: SuccessCodeInterface;
-      const taskToRemove = await this.taskRepository.findOne(request.params.id);
-
-      if (taskToRemove) {
-        await this.taskRepository.remove(taskToRemove);
-        _genericSuccess = { ...SuccessCodes.GENERIC };
-        _genericSuccess.message = `Task with id of ${request.params.id} has been removed.`
-      } else {
-        const _400Error: ErrorInterface = { ...ErrorCode.INVALID_PARAMETERS };
-        _400Error.error = 'No task was found by that id';
-
-        throw _400Error;
-      }
-
-      response.jsonp(_genericSuccess);
+      const result = await deleteTask(request.params.id);
+      response.jsonp(result);
     } catch (error) {
-      // error handling should go here (seperate it in a helper I guess?)
       response.jsonp(error);
     }
   }
