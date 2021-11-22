@@ -2,7 +2,7 @@ import { getRepository } from "typeorm";
 import { NextFunction, Request, Response } from "express";
 import { Task } from "../entity/Task";
 import { Queries, getTasks, getSingleTask, deleteTask } from "../helpers";
-import { ErrorInterface, SuccessCodeInterface } from "../abstractions";
+import { ErrorInterface } from "../abstractions";
 import { SuccessCodes } from "../procedural-codes";
 
 // split into smaller services, then unit test them and then test the integration add interfaces
