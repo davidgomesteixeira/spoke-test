@@ -3,14 +3,13 @@ import { getRepository } from "typeorm";
 import { SuccessCodes, ErrorCode } from "../procedural-codes";
 import { SuccessCodeInterface, ErrorInterface } from "../abstractions";
 
-// convert to class
 export async function deleteTask(id: string) {
   const taskRepository = getRepository(Task);
   let _genericSuccess: SuccessCodeInterface;
   const taskToRemove = await taskRepository.findOne(id);
 
   if (taskToRemove) {
-    await this.taskRepository.remove(taskToRemove);
+    await taskRepository.remove(taskToRemove);
     _genericSuccess = { ...SuccessCodes.GENERIC };
     _genericSuccess.message = `Task with id of ${id} has been removed.`
   } else {

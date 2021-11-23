@@ -1,15 +1,13 @@
 import { getRepository } from "typeorm";
 import { Task } from "../entity/Task";
 
-// convert to class
-export async function getTasks(query: {}) {
+export async function getTasks (query: {}) {
   const taskRepository = getRepository(Task);
 
   try {
     const queryFilter: {} = query;
     const allTasks = await taskRepository.find({ order: { id: "ASC" } });
 
-    console.log
     const filteredTasks = allTasks.filter(function(task: {})  {
       let isValid = true;
       for (const key in queryFilter) {

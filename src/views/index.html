@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spoke Test David</title>
+</head>
+<body>
+  <h1>Spoke Backend Coding Challenge</h1>
+  <h3>The following routes are set as follows</h3>
+  <h4>Get routes</h4>
+  <ul>
+    <li>Get all tasks <a href="/tasks" noreferrer nooopener>https://spoke-david.herokuapp.com/tasks</a></li>
+    <li>Filter tasks based on status, here you will need to change in progress to completed and vice versa <a href="/tasks?status=in progress" noreferrer nooopener>https://spoke-david.herokuapp.com/tasks?status=in progress</a></li>
+    <li>Get single task with Id<a href="/tasks/1" noreferrer nooopener>https://spoke-david.herokuapp.com/tasks/1</a></li>
+  </ul>
+  
+  <h4>Put Routes</h4>
+  <ul>
+    <li>For the put request you will need to use Postman, you can update the task description or it's status. Example as follows</li><br>
+    <code>
+      const body = { "id": 1, "task": "This task is done now", "status": "completed" };<br><br>
+
+      await fetch('https://spoke-david.herokuapp.com/tasks/update', &nbsp;{<br>
+        &nbsp;method: 'PUT',<br>
+        &nbsp;headers: {<br>
+          &nbsp;&nbsp;'Content-Type': 'application/json'<br>
+          &nbsp;},<br>
+          &nbsp;body: JSON.stringify(body)<br>
+      });<br>
+    </code>
+  </ul>
+
+  <h4>Post Routes</h4>
+
+  <ul>
+    <li>For the post request you will need to use Postman, you can create a new task and set it's status, by default it will be in progress. Example as follows</li><br>
+    <code>
+      const body = { "task": "I'd like to create a new task" };<br><br>
+
+      await fetch('https://spoke-david.herokuapp.com/tasks', &nbsp;{<br>
+        &nbsp;method: 'POST',<br>
+        &nbsp;headers: {<br>
+          &nbsp;&nbsp;'Content-Type': 'application/json'<br>
+          &nbsp;},<br>
+          &nbsp;body: JSON.stringify(body)<br>
+      });<br>
+    </code>
+  </ul>
+
+  <h4>Delete Routes</h4>
+
+  <ul>
+    <li>For the delete request you will need to use Postman, you can delete a task with it's corresponding Id. Example as follows</li><br>
+    <code>
+      const body = { "id": 3 };<br><br>
+
+      await fetch(`https://spoke-david.herokuapp.com/tasks/${body.id}`, &nbsp;{<br>
+        &nbsp;method: 'DELETE',<br>
+      });<br>
+    </code>
+  </ul>
+</body>
+</html>

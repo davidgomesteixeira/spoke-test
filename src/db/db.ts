@@ -3,8 +3,6 @@ dotenv.config();
 
 import { createConnection, ConnectionOptions, getConnectionOptions } from "typeorm";
 
-// Add swagger
-
 class DataBase {
   async getOptions(): Promise<ConnectionOptions> {
     let connectionOptions: ConnectionOptions;

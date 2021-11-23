@@ -5,7 +5,6 @@ import { Queries, getTasks, getSingleTask, deleteTask } from "../helpers";
 import { ErrorInterface } from "../abstractions";
 import { SuccessCodes } from "../procedural-codes";
 
-// split into smaller services, then unit test them and then test the integration add interfaces
 export class TaskController {
   private taskRepository = getRepository(Task);
   
@@ -14,7 +13,6 @@ export class TaskController {
       const result = await getTasks(request.query);
       response.send(result);
     } catch (error) {
-      // error handling should go here (seperate it in a helper I guess?)
       response.send(error);
     }
   }
@@ -24,7 +22,6 @@ export class TaskController {
       const result = await getSingleTask(request.params.id);
       response.send(result);
     } catch (error) {
-      // error handling should go here (seperate it in a helper I guess?)
       response.send(error);
     }
   }
@@ -34,7 +31,6 @@ export class TaskController {
       const result = await this.taskRepository.save(request.body);
       response.send(result);
     } catch(error) {
-      // error handling should go here (seperate it in a helper I guess?)
       response.send(error);
     } 
   }
@@ -44,7 +40,6 @@ export class TaskController {
       await Queries.update(request.body)
       response.jsonp(SuccessCodes.GENERIC);
     } catch(error) {
-      // error handling should go here (seperate it in a helper I guess?)
       let _genericError: ErrorInterface;
 
       if (error.message) {

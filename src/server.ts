@@ -1,3 +1,4 @@
+import * as path from 'path';
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import { Request, Response } from "express";
@@ -7,6 +8,13 @@ class ExpressServer {
   initServer() {
     const app = express();
     app.use(bodyParser.json());
+    app.engine('html', require('ejs').renderFile);
+    const viewsPath = path.join(__dirname, './views') ;
+    app.set('view engine', 'html');   
+    app.set('views', viewsPath);
+    app.get('/', function(req, res){
+      res.render("index");
+    });
 
     Routes.forEach(route => {
       (app as any)[route.method](route.route, (req: Request, res: Response, next: Function) => {

@@ -1,6 +1,6 @@
 class SuccessCodes {
   public static GENERIC = {
-    message: '',
+    message: 'Request completed successfully',
     result: 'ok',
     status: 200,
     error: null
